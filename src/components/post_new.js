@@ -2,27 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
+// import '../../style/Form.scss';
 
 const validate = values => {
   const errors = {};
   if (!values.title) {
     errors.title = 'Required';
   }
+  if (!values.category) {
+    errors.category = 'Required';
+  }
+  if (!values.content) {
+    errors.content = 'Required';
+  }
   return errors;
 }
-class PostNew extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-  }
 
-  
-  handleSubmit(e) {
-    debugger;
-    console.log('!!!1', e);
-    // dispatch()
-  }
+  const handleFormSubmit = (values, dispatch) => dispatch(createPost(values));
 
-  renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
     <div>
       <label>{label}</label>
       <div>
@@ -32,17 +30,17 @@ class PostNew extends Component {
     </div>
   )
 
-  render() {
-    const { handleSubmit, pristine, submitting } = this.props;
+  const PostNew = (props) => {
+    const { handleSubmit, pristine, submitting } = props;
     return (
       <div>
         <h3>New Post:</h3>
-        <form onSubmit={handleSubmit(this.handleSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
           <div>
             <div>
               <Field 
                 name="title"
-                component={this.renderField}
+                component={renderField}
                 type="text"
                 placeholder="title"
                 label="Title"
@@ -53,7 +51,7 @@ class PostNew extends Component {
             <div>
               <Field 
                 name="category"
-                component={this.renderField}
+                component={renderField}
                 type="text"
                 placeholder="category"
                 label="Category"
@@ -64,7 +62,7 @@ class PostNew extends Component {
             <div>
               <Field 
                 name="content"
-                component={this.renderField}
+                component={renderField}
                 type="text"
                 placeholder="content"
                 label="Content"
@@ -78,19 +76,7 @@ class PostNew extends Component {
       </div>
     );
   }
-}
 
-// PostNew = reduxForm({
-//   form: 'simple',
-// })(PostNew)
-
-
-// export default connect()(PostNew);
-
-
-// PostNew = connect(
-  
-// )(PostNew);
 
 export default reduxForm({
   form: 'PostNew',
