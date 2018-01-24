@@ -1,5 +1,6 @@
 module.exports = {
   entry: [
+    'regenerator-runtime/runtime',
     './src/index.js'
   ],
   output: {
