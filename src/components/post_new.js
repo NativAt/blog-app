@@ -3,48 +3,71 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 
+const validate = values => {
+  const errors = {};
+  if (!values.title) {
+    errors.title = 'Required';
+  }
+  return errors;
+}
 class PostNew extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
-    // dispatch
   }
+
+  
+  handleSubmit(e) {
+    debugger;
+    console.log('!!!1', e);
+    // dispatch()
+  }
+
+  renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+    <div>
+      <label>{label}</label>
+      <div>
+        <input {...input} placeholder={label} type={type} />
+        {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+      </div>
+    </div>
+  )
 
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
       <div>
         <h3>New Post:</h3>
-        <form onSubmit={this.submitting}>
+        <form onSubmit={handleSubmit(this.handleSubmit)}>
           <div>
-            <label>Title</label>
             <div>
               <Field 
                 name="title"
-                component="input"
+                component={this.renderField}
                 type="text"
                 placeholder="title"
+                label="Title"
               />
             </div>
           </div>
           <div>
-            <label>Category</label>
             <div>
               <Field 
                 name="category"
-                component="input"
+                component={this.renderField}
                 type="text"
                 placeholder="category"
+                label="Category"
               />
             </div>
           </div>
           <div>
-            <label>Content</label>
             <div>
               <Field 
                 name="content"
-                component="input"
+                component={this.renderField}
                 type="text"
                 placeholder="content"
+                label="Content"
               />
             </div>
           </div>
@@ -57,10 +80,19 @@ class PostNew extends Component {
   }
 }
 
-PostNew = connect(
+// PostNew = reduxForm({
+//   form: 'simple',
+// })(PostNew)
 
-)(PostNew);
+
+// export default connect()(PostNew);
+
+
+// PostNew = connect(
+  
+// )(PostNew);
 
 export default reduxForm({
-  form: 'simple'
+  form: 'PostNew',
+  validate
 })(PostNew);
