@@ -32,7 +32,7 @@ class PostIndex extends Component {
           {this.renderPosts()}
         </ul>
         <Link className="btn btn-info" to="/posts/new">
-          Add post
+          Add Post
         </Link>
       </div>
     )
