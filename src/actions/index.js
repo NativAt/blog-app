@@ -40,7 +40,7 @@ export function createPost(values) {
   return async function(dispatch) {
     let request;
     try {
-      request = await axios.post(`${ROOT_URL}/posts${API_KEY}`, { values })
+      request = await axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
     } catch(err) {
       request = { err };
     }

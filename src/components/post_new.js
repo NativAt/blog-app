@@ -50,7 +50,7 @@ const validate = values => {
           <div>
             <div>
               <Field 
-                name="category"
+                name="categories"
                 component={renderField}
                 type="text"
                 placeholder="category"
